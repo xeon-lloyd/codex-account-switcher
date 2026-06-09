@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Account Switcher</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="switcher" aria-live="polite">
+      <header class="panel-header">
+        <span class="panel-brand">
+          <img class="panel-brand-icon" src="./assets/icon.png" alt="" aria-hidden="true">
+          <span class="panel-title">Codex Account Switcher</span>
+          <span id="appVersion" class="panel-version" aria-label="App version"></span>
+        </span>
+        <button id="closeButton" class="window-close" aria-label="Close">×</button>
+      </header>
+
+      <section id="profileList" class="account-list"></section>
+
+      <section class="action-list">
+        <button id="addAccountButton" class="action-row">
+          <span class="row-icon">+</span>
+          <span>Add another account</span>
+        </button>
+      </section>
+
+      <div id="interactionBlocker" class="interaction-blocker" aria-hidden="true" hidden></div>
+    </main>
+
+    <div id="statusToast" class="status-toast" role="status" aria-live="polite">Ready</div>
+
+    <dialog id="profileDialog">
+      <form id="profileForm" method="dialog" class="dialog-body">
+        <h2 id="dialogTitle">Profile</h2>
+        <label for="profileName">Name</label>
+        <input id="profileName" autocomplete="off" maxlength="48" placeholder="work" spellcheck="false">
+        <label id="deviceAuthRow" class="check-row">
+          <input id="deviceAuth" type="checkbox">
+          <span>Use device auth</span>
+        </label>
+        <menu>
+          <button id="cancelDialogButton" value="cancel" type="button">Cancel</button>
+          <button id="confirmDialogButton" value="default">Continue</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog id="loginDialog">
+      <section class="dialog-body login-dialog-body">
+        <h2 id="loginDialogTitle">Signing in</h2>
+        <div id="browserLoginPanel" class="browser-login-panel" hidden>
+          <strong>Continue in your browser</strong>
+          <span>Complete the Codex sign in window, then return here.</span>
+        </div>
+        <div id="deviceCodePanel" class="device-code-panel" hidden>
+          <span>Verification code</span>
+          <strong id="deviceCode">Waiting...</strong>
+        </div>
+        <pre id="loginOutput" class="login-output"></pre>
+        <menu>
+          <button id="copyLoginOutputButton" type="button">Copy</button>
+          <button id="closeLoginDialogButton" type="button">Cancel</button>
+        </menu>
+      </section>
+    </dialog>
+
+    <script src="./toast.js"></script>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

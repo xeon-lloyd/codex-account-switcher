@@ -1,0 +1,86 @@
+{
+  "name": "codex-account-switcher",
+  "version": "0.1.0",
+  "description": "Codex Account Switcher - To use multiple codex accounts in Codex CLI and Codex app with one click",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis",
+    "build:mac": "electron-builder --mac dmg zip",
+    "release:win": "electron-builder --win nsis --publish always",
+    "release:mac": "electron-builder --mac dmg zip --publish always"
+  },
+  "homepage": "https://github.com/xeon-lloyd/codex-account-switcher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xeon-lloyd/codex-account-switcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xeon-lloyd/codex-account-switcher/issues"
+  },
+  "keywords": [
+    "codex",
+    "account",
+    "electron"
+  ],
+  "author": "xeon-lloyd",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "electron": "^39.2.6",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.ritchko.codex-account-switcher",
+    "productName": "Codex Account Switcher",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "files": [
+      "src/**/*",
+      "package.json",
+      "node_modules/@openai/codex/**/*",
+      "node_modules/@openai/codex-*/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/@openai/codex-*/vendor/**/*"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "xeon-lloyd",
+        "repo": "codex-account-switcher",
+        "releaseType": "release"
+      }
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  },
+  "dependencies": {
+    "@openai/codex": "^0.138.0",
+    "electron-updater": "^6.8.9"
+  }
+}
