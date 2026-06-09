@@ -27,6 +27,16 @@
   <sub>저장된 계정을 고르고, 새 계정을 추가하고, 클릭 한 번으로 현재 Codex 계정을 바꿉니다.</sub>
 </p>
 
+<p align="center">
+  <strong>앱에서 동작</strong><br>
+  <img src="img/app_example.gif" alt="Codex Account Switcher 앱 동작 예시" width="720">
+</p>
+
+<p align="center">
+  <strong>CLI에서 동작</strong><br>
+  <img src="img/cli_example.gif" alt="Codex Account Switcher CLI 동작 예시" width="720">
+</p>
+
 ## 이 앱은 무엇인가요?
 
 Codex Account Switcher는 Codex CLI 또는 Codex 앱을 여러 계정으로 사용하는 사람을 위한 계정 전환 도구입니다.
