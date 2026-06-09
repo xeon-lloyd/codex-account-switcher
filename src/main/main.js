@@ -8,6 +8,7 @@ app.disableHardwareAcceleration();
 Menu.setApplicationMenu(null);
 
 let mainWindow;
+let lastLoggedUpdateProgress = -1;
 const profileStore = createProfileStore();
 
 const hasSingleInstanceLock = app.requestSingleInstanceLock();
@@ -17,13 +18,11 @@ if (!hasSingleInstanceLock) {
 }
 
 process.on("uncaughtException", (error) => {
-  console.error(error);
-  app.exit(1);
+  console.error("Uncaught exception:", error);
 });
 
 process.on("unhandledRejection", (error) => {
-  console.error(error);
-  app.exit(1);
+  console.error("Unhandled rejection:", error);
 });
 
 function getAppIconPath() {
@@ -90,6 +89,17 @@ function focusMainWindow() {
   mainWindow.focus();
 }
 
+function sendUpdateStatus(status, detail = {}) {
+  if (!mainWindow || mainWindow.isDestroyed()) {
+    return;
+  }
+
+  mainWindow.webContents.send("updates:status", {
+    status,
+    ...detail,
+  });
+}
+
 function configureAutoUpdater() {
   if (!app.isPackaged) {
     return;
@@ -98,13 +108,48 @@ function configureAutoUpdater() {
   autoUpdater.autoDownload = true;
   autoUpdater.autoInstallOnAppQuit = true;
 
-  autoUpdater.on("error", (error) => {
-    console.error("Auto update error:", error);
+  autoUpdater.on("checking-for-update", () => {
+    console.log("Checking for updates");
   });
 
-  autoUpdater.checkForUpdatesAndNotify().catch((error) => {
-    console.error("Auto update check failed:", error);
+  autoUpdater.on("update-available", (info) => {
+    lastLoggedUpdateProgress = -1;
+    console.log(`Update available: ${info.version}`);
+    sendUpdateStatus("available", { version: info.version });
   });
+
+  autoUpdater.on("update-not-available", (info) => {
+    console.log(`No update available: ${info.version}`);
+  });
+
+  autoUpdater.on("download-progress", (progress) => {
+    const percent = Math.round(progress.percent || 0);
+    if (percent >= 100 || percent >= lastLoggedUpdateProgress + 10) {
+      lastLoggedUpdateProgress = percent;
+      console.log(`Update download progress: ${percent}%`);
+    }
+  });
+
+  autoUpdater.on("update-downloaded", (info) => {
+    console.log(`Update downloaded: ${info.version}`);
+    sendUpdateStatus("downloaded", { version: info.version });
+  });
+
+  autoUpdater.on("error", (error) => {
+    console.error("Auto update error:", error);
+    sendUpdateStatus("error", {
+      message: error?.message || String(error),
+    });
+  });
+
+  setTimeout(() => {
+    autoUpdater.checkForUpdates().catch((error) => {
+      console.error("Auto update check failed:", error);
+      sendUpdateStatus("error", {
+        message: error?.message || String(error),
+      });
+    });
+  }, 5000);
 }
 
 function registerIpc() {

@@ -559,6 +559,22 @@ window.codexAccounts.onLoginOutput((text) => {
   }
 });
 
+window.codexAccounts.onUpdateStatus?.((update) => {
+  if (update.status === "available") {
+    showToast(`Downloading v${update.version}...`, 5000);
+    return;
+  }
+
+  if (update.status === "downloaded") {
+    showToast(`v${update.version} will install when you quit the app.`, 7000);
+    return;
+  }
+
+  if (update.status === "error") {
+    showToast("Update check failed. See app logs.", 6000);
+  }
+});
+
 hydrateAppVersion().catch(() => {
   elements.appVersion.hidden = true;
 });

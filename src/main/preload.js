@@ -8,6 +8,11 @@ contextBridge.exposeInMainWorld("codexAccounts", {
   deleteProfile: (payload) => ipcRenderer.invoke("profiles:delete", payload),
   getAppVersion: () => ipcRenderer.invoke("app:getVersion"),
   closeApp: () => ipcRenderer.invoke("app:close"),
+  onUpdateStatus: (callback) => {
+    const listener = (_event, status) => callback(status);
+    ipcRenderer.on("updates:status", listener);
+    return () => ipcRenderer.removeListener("updates:status", listener);
+  },
   onLoginOutput: (callback) => {
     const listener = (_event, text) => callback(text);
     ipcRenderer.on("login:output", listener);
