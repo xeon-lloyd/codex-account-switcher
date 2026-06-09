@@ -1,6 +1,6 @@
 {
   "name": "codex-account-switcher",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Codex Account Switcher - To use multiple codex accounts in Codex CLI and Codex app with one click",
   "main": "src/main/main.js",
   "private": true,
