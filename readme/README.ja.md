@@ -54,7 +54,7 @@ Codex Account Switcherは、Codex CLIまたはCodexアプリで複数のアカ�
 
 ### macOS
 
-1. Releasesページで `Codex-Account-Switcher-...mac-x64.dmg` をダウンロードします。
+1. Releasesページで、Apple Silicon Macは `Codex-Account-Switcher-...mac-arm64.dmg`、Intel Macは `Codex-Account-Switcher-...mac-x64.dmg` をダウンロードします。
 2. DMGを開き、アプリをApplicationsフォルダに移動します。
 3. アプリを開きます。
 4. macOSで未確認の開発元に関する警告が表示された場合は、**Privacy & Security** で許可するか、アプリを右クリックして **Open** を選びます。

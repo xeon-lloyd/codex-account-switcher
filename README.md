@@ -59,7 +59,7 @@ You can download the latest version from GitHub Releases.
 
 ### macOS
 
-1. On the Releases page, download `Codex-Account-Switcher-...mac-x64.dmg`.
+1. On the Releases page, download `Codex-Account-Switcher-...mac-arm64.dmg` for Apple Silicon Macs, or `Codex-Account-Switcher-...mac-x64.dmg` for Intel Macs.
 2. Open the DMG and move the app into the Applications folder.
 3. Open the app.
 4. If macOS shows an unidentified developer warning, allow it in **Privacy & Security**, or right-click the app and choose **Open**.
