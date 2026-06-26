@@ -152,9 +152,10 @@ jobs:
           security find-identity -v -p codesigning "$KEYCHAIN_PATH"
 
       - name: Build macOS package
+        timeout-minutes: 45
         run: npm run ${{ matrix.build_script }}
         env:
-          DEBUG: electron-builder,electron-osx-sign*
+          DEBUG: electron-builder,electron-osx-sign*,electron-notarize*
           CSC_NAME: "Ritchko (3B3BRU9873)"
           CSC_KEY_PASSWORD: ${{ secrets.MACOS_CSC_KEY_PASSWORD }}
           APPLE_API_KEY: ${{ env.APPLE_API_KEY }}
