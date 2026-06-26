@@ -154,7 +154,7 @@ jobs:
       - name: Build macOS package
         run: npm run ${{ matrix.build_script }}
         env:
-          DEBUG: electron-builder
+          DEBUG: electron-builder,electron-osx-sign*
           CSC_NAME: "Ritchko (3B3BRU9873)"
           CSC_KEY_PASSWORD: ${{ secrets.MACOS_CSC_KEY_PASSWORD }}
           APPLE_API_KEY: ${{ env.APPLE_API_KEY }}
