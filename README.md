@@ -32,6 +32,16 @@
   <sub>Pick a saved account, add a new one, and switch the active Codex account with one click.</sub>
 </p>
 
+<p align="center">
+  <strong>App in action</strong><br>
+  <img src="readme/img/app_example.gif" alt="Codex Account Switcher app workflow" width="720">
+</p>
+
+<p align="center">
+  <strong>CLI in action</strong><br>
+  <img src="readme/img/cli_example.gif" alt="Codex Account Switcher CLI workflow" width="720">
+</p>
+
 ## What is this app?
 
 Codex Account Switcher is an account-switching tool for people who use Codex CLI or the Codex app with multiple accounts.
